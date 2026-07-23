@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StyleHaven NG - Fashion Boutique</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Nav + Cart -->
+  <nav class="bg-white shadow sticky top-0 z-50 p-4 flex justify-between items-center">
+    <h1 class="font-bold text-2xl">StyleHaven NG</h1>
+    <button onclick="viewCart()" class="relative bg-black text-white px-4 py-2 rounded-lg">
+      Cart <span id="cart-count" class="bg-red-500 text-white rounded-full px-2 ml-1">0</span>
+    </button>
+  </nav>
+
+  <!-- Hero -->
+  <section class="relative">
+    <img src="Styleheaven.jpg" alt="StyleHaven NG" class="w-full h-96 object-cover">
+    <div class="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+      <h1 class="text-5xl font-bold text-white">New Arrivals</h1>
+    </div>
+  </section>
+
+  <!-- Products -->
+  <section class="py-16 px-4 max-w-6xl mx-auto">
+    <h2 class="text-3xl font-bold text-center mb-10">Our Collection</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-8">
+      
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="Sneakers.jpg" alt="Sneakers" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-xl">Sneakers</h3>
+          <p class="text-gray-600 mb-3">₦35,000</p>
+          <button onclick="addToCart('Sneakers', 35000)" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="Elegant Dress .jpg" alt="Elegant Dress" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-xl">Elegant Dress</h3>
+          <p class="text-gray-600 mb-3">₦25,000</p>
+          <button onclick="addToCart('Elegant Dress', 25000)" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="Leather Bag.jpg" alt="Leather Bag" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-xl">Leather Bag</h3>
+          <p class="text-gray-600 mb-3">₦40,000</p>
+          <button onclick="addToCart('Leather Bag', 40000)" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="Jeans.jpg" alt="Jeans" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-xl">Jeans</h3>
+          <p class="text-gray-600 mb-3">₦18,000</p>
+          <button onclick="addToCart('Jeans', 18000)" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">Add to Cart</button>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow-md overflow-hidden">
+        <img src="Denim Jacket.jpg" alt="Denim Jacket" class="w-full h-64 object-cover">
+        <div class="p-4">
+          <h3 class="font-bold text-xl">Denim Jacket</h3>
+          <p class="text-gray-600 mb-3">₦30,000</p>
+          <button onclick="addToCart('Denim Jacket', 30000)" class="w-full bg-black text-white py-2 rounded-lg hover:bg-gray-800">Add to Cart</button>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-black text-white text-center py-6">
+    <p>© 2026 StyleHaven NG. Lagos, Nigeria</p>
+  </footer>
+
+  <!-- MAIN JS - Simple Cart -->
+  <script>
+  let cart = [];
+
+  function addToCart(name, price) {
+    cart.push({name, price});
+    showToast(`${name} added to cart!`);
+    updateCartCount();
+  }
+
+  function updateCartCount() {
+    document.getElementById('cart-count').innerText = cart.length;
+  }
+
+  function showToast(message) {
+    const toast = document.createElement('div');
+    toast.innerText = message;
+    toast.className = 'fixed bottom-5 right-5 bg-black text-white px-4 py-3 rounded-lg shadow-lg z-50';
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), 2000);
+  }
+
+  function viewCart() {
+    if(cart.length === 0) {
+      alert('Your cart is empty');
+      return;
+    }
+    let total = cart.reduce((sum, item) => sum + item.price, 0);
+    let items = cart.map(i => `${i.name} - ₦${i.price.toLocaleString()}`).join('\n');
+    alert(`Your Cart:\n\n${items}\n\nTotal: ₦${total.toLocaleString()}\n\nWhatsApp us to checkout!`);
+  }
+  </script>
+
+</body>
+</html>
