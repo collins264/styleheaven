@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>StyleHaven NG - Fashion Boutique</title>
+  <title>StyleHaven NG - Fashion Boutique by Collins</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50">
@@ -77,14 +77,21 @@
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="bg-black text-white text-center py-6">
-    <p>© 2026 StyleHaven NG. Lagos, Nigeria</p>
+  <!-- Footer with your name -->
+  <footer class="bg-black text-white py-8">
+    <div class="max-w-6xl mx-auto px-4 text-center">
+      <h3 class="text-2xl font-bold mb-2">StyleHaven NG</h3>
+      <p class="mb-4">Fashion Boutique in Lagos, Nigeria</p>
+      <p class="mb-2">WhatsApp: <a href="https://wa.me/2348139320756" class="underline">08139320756</a></p>
+      <p class="mb-4">Facebook: <a href="https://facebook.com/Collins Onyedikachi" class="underline">Collins Onyedikachi</a></p>
+      <p class="text-gray-400 text-sm">© 2026 StyleHaven NG. Built by Collins</p>
+    </div>
   </footer>
 
-  <!-- MAIN JS - Simple Cart -->
+  <!-- MAIN JS - Cart + WhatsApp -->
   <script>
   let cart = [];
+  const WHATSAPP_NUMBER = "2348139320756"; // Your number
 
   function addToCart(name, price) {
     cart.push({name, price});
@@ -99,7 +106,7 @@
   function showToast(message) {
     const toast = document.createElement('div');
     toast.innerText = message;
-    toast.className = 'fixed bottom-5 right-5 bg-black text-white px-4 py-3 rounded-lg shadow-lg z-50';
+    toast.className = 'fixed bottom-5 right-5 bg-green-600 text-white px-4 py-3 rounded-lg shadow-lg z-50';
     document.body.appendChild(toast);
     setTimeout(() => toast.remove(), 2000);
   }
@@ -109,9 +116,20 @@
       alert('Your cart is empty');
       return;
     }
+    checkoutWhatsApp();
+  }
+
+  function checkoutWhatsApp() {
     let total = cart.reduce((sum, item) => sum + item.price, 0);
-    let items = cart.map(i => `${i.name} - ₦${i.price.toLocaleString()}`).join('\n');
-    alert(`Your Cart:\n\n${items}\n\nTotal: ₦${total.toLocaleString()}\n\nWhatsApp us to checkout!`);
+    let items = cart.map(i => `• ${i.name} - ₦${i.price.toLocaleString()}`).join('\n');
+    
+    let message = `Hi StyleHaven NG! 👋\n\nI want to place an order:\n${items}\n\n*Total: ₦${total.toLocaleString()}*\n\nMy Name:\nMy Address:`;
+    
+    let url = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
+    window.open(url, '_blank');
+    
+    cart = [];
+    updateCartCount();
   }
   </script>
 
